@@ -1,5 +1,5 @@
-### Task Manager
-**Author: Chaimaa El Jarite**
+# Task Manager
+## Author: Chaimaa El Jarite
 
 **Leistungsbeurteilung: Element B Abmachungen (65%)**
 Tasks haben mindestens die folgenden Properties:

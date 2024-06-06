@@ -19,6 +19,11 @@ app.use(session({
 }));
 
 
+/**
+* 
+* TASKS
+* 
+**/
 
 /*
 TEST DATEN
@@ -132,17 +137,25 @@ app.patch("/tasks/:ID", (req, res) => {
 });
 
 
+/**
+* 
+* AUTHENTIFICATION
+* 
+**/
+
+
 /*
-AUTHENTIFICATION
+AUTHENTIFICATION ENDPOINTS
 */
 app.post("/login", (req,res) => {
     const email = req.body;
     const password = req.body;
 
     if (password === "m295"){
+        req.session.user = email;
         return res.status(200);
     }
-    return res.status(401).json({ error: "Falsche Passwort" })
+    return res.status(401).json({ error: "Falsche Credentials" })
 });
 
 

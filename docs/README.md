@@ -14,4 +14,6 @@ Installation der node Modules:
 
 
 DOCS:
-- swagger unter [(https://localhost:3000/api-docs)] aufrufbar
+- Swagger Datei PATH: docs/swagger-output.json und  unter [(https://localhost:3000/api-docs)] aufrufbar
+
+- Commits Log Datei PATH: docs/commit-log.txt

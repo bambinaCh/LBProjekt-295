@@ -1,14 +1,14 @@
 
 const express = require("express");
 const session = require("express-session");
-const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger-output.json');
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("../swagger-output.json");
 
 const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(session({
     secret: "modul295",
     resave: false,
@@ -142,7 +142,7 @@ app.post("/login", (req,res) => {
     if (password === "m295"){
         return res.status(200);
     }
-    return res.status(401).json({ error: 'Falsche Passwort' })
+    return res.status(401).json({ error: "Falsche Passwort" })
 });
 
 

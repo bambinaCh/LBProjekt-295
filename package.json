@@ -1,6 +1,13 @@
 {
   "dependencies": {
     "express": "^4.19.2",
-    "express-session": "^1.18.0"
+    "express-session": "^1.18.0",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "swagger-autogen": "^2.23.7"
+  },
+  "scripts": {
+    "swagger": "node ./swagger.js"
   }
 }

@@ -1,0 +1,205 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Task Management API",
+    "description": "Eine API zur Verwaltung von Aufgaben",
+    "version": "1.0.0"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/tasks": {
+      "get": {
+        "description": "Ruft alle Aufgaben ab",
+        "responses": {
+          "200": {
+            "description": "Erfolgreiche Abfrage der Aufgabenliste"
+          }
+        }
+      },
+      "post": {
+        "description": "Erstellt eine neue Aufgabe und fügt sie der Aufgabenliste hinzu",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "string",
+                  "example": "5",
+                  "description": "Die ID der Aufgabe"
+                },
+                "Titel": {
+                  "type": "string",
+                  "example": "Neue Aufgabe",
+                  "description": "Der Titel der Aufgabe"
+                },
+                "Beschreibung": {
+                  "type": "string",
+                  "example": "Beschreibung der neuen Aufgabe",
+                  "description": "Die Beschreibung der Aufgabe"
+                },
+                "Done": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Der Status der Aufgabe, ob sie erledigt ist"
+                },
+                "DueDate": {
+                  "type": "string",
+                  "example": "2024-06-30",
+                  "description": "Das Fälligkeitsdatum der Aufgabe"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Aufgabe erfolgreich erstellt"
+          },
+          "422": {
+            "description": "Unverarbeitbare Entität, wenn erforderliche Felder fehlen"
+          }
+        }
+      }
+    },
+    "/tasks/{ID}": {
+      "get": {
+        "description": "Ruft Informationen zu einer bestimmten Aufgabe anhand ihrer ID ab",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Die ID der gesuchten Aufgabe"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Erfolgreiche Abfrage der Aufgabe"
+          },
+          "404": {
+            "description": "Aufgabe nicht gefunden"
+          }
+        }
+      },
+      "delete": {
+        "description": "Löscht eine Aufgabe anhand ihrer ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Die ID der zu löschenden Aufgabe"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Aufgabe erfolgreich gelöscht"
+          },
+          "404": {
+            "description": "Aufgabe nicht gefunden"
+          }
+        }
+      },
+      "patch": {
+        "description": "Aktualisiert eine Aufgabe anhand ihrer ID",
+        "parameters": [
+          {
+            "name": "ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Die ID der zu aktualisierenden Aufgabe"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "string",
+                  "example": "1",
+                  "description": "Die neue ID der Aufgabe"
+                },
+                "Titel": {
+                  "type": "string",
+                  "example": "Einkauf erledigen",
+                  "description": "Der neue Titel der Aufgabe"
+                },
+                "Beschreibung": {
+                  "type": "string",
+                  "example": "Einkaufsliste erstellen und Lebensmittel besorgen",
+                  "description": "Die neue Beschreibung der Aufgabe"
+                },
+                "Done": {
+                  "type": "boolean",
+                  "example": false,
+                  "description": "Der neue Status der Aufgabe, ob sie erledigt ist"
+                },
+                "DueDate": {
+                  "type": "string",
+                  "example": "2024-06-10",
+                  "description": "Das neue Fälligkeitsdatum der Aufgabe"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aufgabe erfolgreich aktualisiert"
+          },
+          "404": {
+            "description": "Aufgabe nicht gefunden"
+          },
+          "422": {
+            "description": "Unverarbeitbare Entität, wenn erforderliche Felder fehlen"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "description": "Authentifiziert einen Benutzer",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "user@example.com",
+                  "description": "Die E-Mail-Adresse des Benutzers"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "password",
+                  "description": "Das Passwort des Benutzers"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Erfolgreiche Authentifizierung"
+          },
+          "401": {
+            "description": "Falsches Passwort"
+          }
+        }
+      }
+    }
+  }
+}

@@ -14,4 +14,4 @@ Installation der node Modules:
 
 
 DOCS:
-- swagger unter [https://localhost:3000/api-docs] aufrufbar
+- swagger unter [(https://localhost:3000/api-docs)] aufrufbar

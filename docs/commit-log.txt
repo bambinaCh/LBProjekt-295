@@ -1,0 +1,27 @@
+commit c1a66ad4425ef810f99630b650009e9fb815ffdd (HEAD -> main, origin/main)
+Author: bambinaCh <chamaa.jarite@gmail.com>
+Date:   Thu Jun 6 16:54:40 2024 +0200
+
+    postman tests
+
+commit 40d4712dd5abd70d33683ade84f6838c0e9e1006
+Author: bambinaCh <chamaa.jarite@gmail.com>
+Date:   Thu Jun 6 15:52:29 2024 +0200
+
+    jwt
+
+commit 4329eba6ca7ade72e9c1c80fb5875e671f3e69bb
+Author: bambinaCh <chamaa.jarite@gmail.com>
+Date:   Thu Jun 6 15:25:19 2024 +0200
+
+    readme update
+
+commit 645ab5bf481c81ac9979b7debba39c4caefd5240
+Author: bambinaCh <chamaa.jarite@gmail.com>
+Date:   Thu Jun 6 15:14:36 2024 +0200
+
+    readme updated + LOGIN
+
+commit f5804e54a5f47be4ac177b7274ab26e6889e9bee
+Author: bambinaCh <chamaa.jarite@gmail.com>
+Date:   Thu Jun 6 14:37:00 2024 +0200

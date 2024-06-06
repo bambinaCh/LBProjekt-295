@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 3000;
+const secretKey = "sht";
 
 /**
  * 
@@ -150,8 +151,31 @@ app.patch("/tasks/:ID", (req, res) => {
 **/
 
 /*
-GENERATE TOKEN
+MIDDLEWARE TOKEN
 */
+function verifyToken(req, res, next) {
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(403).json({ error: "Kein Token bereitgestellt" });
+    }
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: "Ungültiges Token" });
+        }
+        req.user = decoded; 
+        next();
+    });
+}
+
+app.use((req, res, next) => {
+    if (req.path !== "/login" && req.path !== "/verify") {
+        verifyToken(req, res, next);
+    } else {
+        next();
+    }
+});
 
 
 /*
@@ -162,17 +186,35 @@ app.post("/login", (req, res) => {
     const password = req.body.password;
 
     if (password === "m295") {
-        req.session.user = email;
-        return res.status(200);
+        const secretKey = "sht";
+
+        function generateToken(email) {
+            return jwt.sign({ email }, secretKey);
+        }
+
+        const token = generateToken(email);
+        return res.status(200).json({ token });
     }
     return res.status(401).json({ error: "Falsche Credentials" })
 });
 
 app.get("/verify", (req, res) => {
-    if (req.session.user) {
-        return res.status(200);
+    const token = req.headers.authorization;
+
+    if (!token) {
+        return res.status(401).json({ error: "Authentifizierung nicht möglich" });
     }
-    return res.status(401).json({ error: "Authentifizierung nicht möglich" });
+
+
+    jwt.verify(token, secretKey, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ error: "Ungültiges Token" });
+        } else {
+            return res.status(200).json({ message: "Token gültig", decodedToken: decoded });
+        }
+    });
+
+    
 });
 
 app.delete("/logout", (req, res) => {

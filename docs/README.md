@@ -21,3 +21,5 @@ DOCS:
 
 **WEITERE INFO**
 - Test Daten würden mit OpenAI generiert.
+
+-Swagger würde mithilf OpenAi ausgefüllt.

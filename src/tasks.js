@@ -3,6 +3,7 @@ const express = require("express");
 const session = require("express-session");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("../swagger-output.json");
+const jwt = require("jsonwebtoken");
 
 const app = express();
 const port = 3000;
@@ -147,6 +148,10 @@ app.patch("/tasks/:ID", (req, res) => {
 * AUTHENTIFICATION
 * 
 **/
+
+/*
+GENERATE TOKEN
+*/
 
 
 /*

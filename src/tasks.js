@@ -1,11 +1,28 @@
 
-const express = require('express');
+const express = require("express");
+const session = require("express-session");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+
 const app = express();
-
 const port = 3000;
+
 app.use(express.json());
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(session({
+    secret: "modul295",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure:true
+    }
+}));
 
 
+
+/*
+TEST DATEN
+*/
 let tasks = [
     {
         "ID": "1",
@@ -39,21 +56,22 @@ let tasks = [
 
 
 
-app.get('/tasks', (req, res) => {
+/*
+TASKS ENDPOINTS
+*/
+app.get("/tasks", (req, res) => {
     const tasksList = tasks.map(task => ({ ID: task.ID, Titel: task.Titel, Beschreibung: task.Beschreibung, Done: task.Done, DueDate: task.DueDate }));
     res.json(tasksList);
 });
 
-
-
-app.post('/tasks', (req, res) => {
+app.post("/tasks", (req, res) => {
     const newTask = req.body;
     
     if (!newTask.ID) {
-        return res.status(422).json({ error: 'Eine ID ist nötig' });
+        return res.status(422).json({ error: "Eine ID ist nötig" });
     }
     if (!newTask.Titel) {
-        return res.status(422).json({ error: 'Ein Titel ist nötig' });
+        return res.status(422).json({ error: "Ein Titel ist nötig" });
     }
    
     tasks.push(newTask);
@@ -61,37 +79,37 @@ app.post('/tasks', (req, res) => {
 });
 
 
-app.get('/tasks/:ID', (req, res) => {
+app.get("/tasks/:ID", (req, res) => {
     const ID = req.params.ID
     const task = tasks.find(task => task.ID == ID);
     if (!task) {
-        return res.status(404).json({ error: 'Task nicht gefunden' });
+        return res.status(404).json({ error: "Task nicht gefunden" });
     }
     res.json(task);
 });
 
-app.delete('/tasks/:ID', (req, res) => {
+app.delete("/tasks/:ID", (req, res) => {
     const ID = req.params.ID
     const index = tasks.findIndex(task => task.ID == ID);
     if (index === -1) {
-        return res.status(404).json({ error: 'Task nicht gefunden' });
+        return res.status(404).json({ error: "Task nicht gefunden" });
     }
 
     tasks.splice(index, 1);
     res.sendStatus(204);
 });
 
-app.patch('/tasks/:ID', (req, res) => {
+app.patch("/tasks/:ID", (req, res) => {
     const ID = req.params.ID
     const updates = req.body;
     const index = tasks.findIndex(task => task.ID == ID);
 
     if (index === -1) {
-        return res.status(404).json({ error: 'Task nicht gefunden' });
+        return res.status(404).json({ error: "Task nicht gefunden" });
     }
 
     if (Object.keys(updates).length === 0) {
-        return res.status(422).json({ error: 'Es muss mindestens 1 Wert angegeben werden' });
+        return res.status(422).json({ error: "Es muss mindestens 1 Wert angegeben werden" });
     }
 
     if (updates.ID) {
@@ -114,14 +132,26 @@ app.patch('/tasks/:ID', (req, res) => {
 });
 
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+/*
+AUTHENTIFICATION
+*/
+app.post("/login", (req,res) => {
+    const email = req.body;
+    const password = req.body;
+
+    if (password === "m295"){
+        return res.status(200);
+    }
+    return res.status(401).json({ error: 'Falsche Passwort' })
 });
 
 
 
-
-
-
+/* 
+SERVER CONSLE LOG 
+*/
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
 
 

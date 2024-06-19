@@ -1,5 +1,5 @@
 # Task Manager
-### Author: Chaimaa El Jarite
+### Author: Bambina
 
 **PROJEKTINFO**
 
